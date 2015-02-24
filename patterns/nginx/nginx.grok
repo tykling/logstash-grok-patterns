@@ -1,3 +1,8 @@
+# nginx log_formats:
+# NGINX_PROXYLOG: log_format timing '$time_local - $http_host - $remote_addr - $request - HTTP $status - upstream_response_time $upstream_response_time - total_request_time $request_time';
+# NGINX_ACCESSLOG: log_format main  '$host - $http_x_forwarded_for - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_time';
+# NGINX_POSTDATA: log_format postdata '$host - $http_x_forwarded_for - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" postdata: "$request_body"';
+
 NGINX_PROXYLOG %{HAPROXYDATE} - %{HOSTNAME:nginx_vhost} - %{IP:nginx_clientip} - %{WORD:nginx_method} %{URIPATHPARAM:nginx_request} HTTP/%{BASE10NUM:nginx_httpversion} - HTTP %{BASE10NUM:nginx_responsecode} - upstream_response_time (%{BASE10NUM:nginx_upstream_response_time}|-) - total_request_time %{BASE10NUM:nginx_total_request_time}
 NGINX_ACCESSLOG %{HOST:nginx_vhost} - %{IP:nginx_clientip} - (?:%{URIPATHPARAM:request}|-) \[%{MONTHDAY}/%{MONTH}/%{YEAR}:%{TIME} %{INT}\] "%{WORD:nginx_method} %{NOTSPACE:nginx_request} HTTP/%{NUMBER:nginx_httpversion}" %{NUMBER:nginx_responsecode} (%{NUMBER:nginx_response_bytes}|-) %{QS:nginx_referrer} %{QS:nginx_useragent} %{BASE10NUM:nginx_total_request_time}
 NGINX_POSTDATA %{HOST:nginx_vhost} - %{IP:nginx_clientip} - (?:%{URIPATHPARAM:request}|-) \[%{MONTHDAY}/%{MONTH}/%{YEAR}:%{TIME} %{INT}\] "%{WORD:nginx_method} %{NOTSPACE:nginx_request} HTTP/%{NUMBER:nginx_httpversion}" %{NUMBER:nginx_responsecode} (%{NUMBER:nginx_response_bytes}|-) %{QS:nginx_referrer} %{QS:nginx_useragent} postdata: %{QS:nginx_postdata}

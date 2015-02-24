@@ -1,3 +1,5 @@
+# postgres log_line_prefix = 'user=%u-%h,db=%d '
+
 ### define the prefix
 PGPREFIX \[%{NUMBER}-1\] user=%{DATA:postgres_username}-%{IPORHOST:postgres_client},db=%{DATA:postgres_dbname}
 PGLOGPREFIX %{PGPREFIX}%{SPACE}LOG:
